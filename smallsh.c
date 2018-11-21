@@ -115,8 +115,8 @@ int runcommand(char **cline, int where)
 {
     int status;
     int pid, exitstat, ret;
-    printf("%s\n",cline);
-    
+    printf("%s\n",*cline);
+
     if ((pid = fork()) < 0) {
         perror("smallsh");
         return(-1);
