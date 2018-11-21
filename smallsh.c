@@ -30,6 +30,17 @@ int userin(char *p){
     }    
 }
 
+int inarg(char c){
+    char *wrk;
+    for(wrk = special; *wrk != '\0'; wrk++) {
+        if (c == *wrk) {
+            printf(" special arg : %c inarg()\n", *wrk);
+            return(0);
+        }
+    }
+    return(1);
+}
+
 //get token and place into tokbuf
 int get_token(char **outptr){
     int type;
@@ -59,16 +70,7 @@ int get_token(char **outptr){
     return type;
 }
 
-int inarg(char c){
-    char *wrk;
-    for(wrk = special; *wrk != '\0'; wrk++) {
-        if (c == *wrk) {
-            printf(" special arg : %c inarg()\n", *wrk);
-            return(0);
-        }
-    }
-    return(1);
-}
+
 
 /* 입력 줄을 아래와 같이 처리한다 : */
 /* */
