@@ -1,4 +1,5 @@
 #include "smallsh.h"
+#include <stdlib.h>
 
 static char inpbuf[MAXBUF], tokbuf[2*MAXBUF], *ptr, *tok;
 static char special[] = {' ', '\t', '&', ';', '\n', '\0'};
