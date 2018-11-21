@@ -115,12 +115,13 @@ int runcommand(char **cline, int where)
 {
     int status;
     int pid, exitstat, ret;
+    printf("%s\n",cline);
+    
     if ((pid = fork()) < 0) {
         perror("smallsh");
         return(-1);
     }
-    if (pid == 0) { /* child */
-        printf("%s\n",cline);
+    if (pid == 0) { /* child */        
         execvp(*cline, cline);
         perror(*cline);
         exit(127);
