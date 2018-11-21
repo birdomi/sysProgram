@@ -137,5 +137,5 @@ int runcommand(char **cline, int where)
 int main()
 {
     while(userin(prompt) != EOF)
-        procline();
+        continue;
 }
