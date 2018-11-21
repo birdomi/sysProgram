@@ -1,206 +1,139 @@
-
-#include "smallsh.h" /* include file for example */
-#include <stdlib.h>
-#include <signal.h>
-
-/* program buffers and work pointers */
-static char inpbuf[MAXBUF], tokbuf[2*MAXBUF], *ptr = inpbuf, *tok = tokbuf;
-int intr_p = 0;
-char *prompt = "Command>"; /* prompt */
-int fg_pid = 0;
-
-userin(p) /* print prompt and read a line */
-char *p;
-{
-  int c, count;
-  /* initialization for later routines */
-  ptr = inpbuf;
-  tok = tokbuf;
-
-  /* display prompt */
-  printf("%s ", p);
-
-  for(count = 0;;){
-    if((c = getchar()) == EOF)
-      return(EOF);
-
-    if(count < MAXBUF)
-      inpbuf[count++] = c;
-
-    if(c == '\n' && count < MAXBUF){
-      inpbuf[count] = '\0';
-      return(count);
-    }
-
-    /* if line too long restart */
-    if(c == '\n'){
-      printf("smallsh: input line too long\n");
-      count = 0;
-      printf("%s ", p);
-    }
-  }
-}
-
+#include "smallsh.h"
+static char inpbuf[MAXBUF], tokbuf[2*MAXBUF], *ptr, *tok;
 static char special[] = {' ', '\t', '&', ';', '\n', '\0'};
-
-inarg(c) /* are we in an ordinary argument */
-char c;
+char *prompt = "Command>"; /* Prompt */
+/* 프롬프트(prompt)를 인쇄하고 키보드에서 한 줄의 */
+/* 입력이 들어오기를 기다린다. 받은 입력은 무엇이건 */
+/* 프로그램 버퍼에 저장한다. */
+int userin(char *p)
 {
-  char *wrk;
-  for(wrk = special; *wrk != '\0'; wrk++)
-    if(c == *wrk)
-      return(0);
-
-  return(1);
+int c, count;
+/* initialization for later routines */
+ptr = inpbuf;
+tok = tokbuf;
+/* display prompt */
+printf("%s ", p);
+count = 0;
+while(1) {
+ if ((c = getchar()) == EOF) return(EOF);
+ if (count < MAXBUF) inpbuf[count++] = c;
+ if (c == '\n' && count < MAXBUF) {
+inpbuf[count] = '\0';
+/* printf(" inpbuf[%d] : %s \n", count, inpbuf);*/
+return(count);
+ }
+ /* if line too long, restart */
+ if (c == '\n') {
+printf(" smallsh : input line too long\n");
+count = 0;
+printf("%s ", p);
+ }
 }
-
-gettok(outptr) /* get token and place into tokbuf */
-char **outptr;
+}
+/* get token and place into tokbuf */
+int gettok(char **outptr)
 {
-  int type;
-
-  *outptr = tok;
-
-  /* strip white space */
-  for(;*ptr == ' ' || *ptr == '\t'; ptr++)
-    ;
-
-  *tok++ = *ptr;
-
-  switch(*ptr++){
-    case '\n':
-      type = EOL; break;
-    case '&':
-      type = AMPERSAND; break;
-    case ';':
-      type = SEMICOLON; break;
-    default:
-      type = ARG;
-      while(inarg(*ptr))
-        *tok++ = *ptr++;
-  }
-
-  *tok++ = '\0';
-  return(type);
+int type;
+/* outptr 문자열을 tok 로 지정한다 */
+*outptr = tok;
+/* 토큰을 포함하고 있는 버퍼로부터 여백을 제거한다 */
+while( *ptr == ' ' || *ptr == '\t') ptr++;
+/* 토큰 포인터를 버퍼 내의 첫 토큰으로 지정한다 */
+*tok++ = *ptr;
+/* 버퍼내의 토큰에 따라 유형 변수를 지정한다 */
+switch(*ptr++) {
+ case '\n' : type = EOL;
+/* printf(" type == EOL getok()\n"); */
+break;
+ case '&' : type = AMPERSAND;
+/* printf(" type == AMPERSAND getok()\n"); */
+break;
+ case ';' : type = SEMICOLON;
+/* printf(" type == SEMICOLON getok()\n"); */
+break;
+ default : type = ARG;
+/* printf(" type == ARG getok()\n"); */
+while(inarg(*ptr))
+*tok++ = *ptr++;
 }
-
-void handle_int(int s) {
-  int c;
-  if(!fg_pid) {
-    /* ctrl-c hit at shell prompt */
-    return;
-  }
-  if(intr_p) {
-    printf("\ngot it, signalling\n");
-    kill(fg_pid, SIGTERM);
-    fg_pid = 0;
-  } else {
-    printf("\nignoring, type ^C again to interrupt\n");
-    intr_p = 1;
-  }
+*tok++ = '\0';
+return type;
 }
-
-/* execute a command with optional wait */
-runcommand(cline, where)
-char **cline;
-int where;
+/* are we in an ordinary argument */
+bool inarg(char c)
 {
-  int pid, exitstat, ret;
-
-  /* ignore signal (linux) */
-  struct sigaction sa_ign, sa_conf;
-  sa_ign.sa_handler = SIG_IGN;
-  sigemptyset(&sa_ign.sa_mask);
-  sa_ign.sa_flags = SA_RESTART;
-
-  sa_conf.sa_handler = handle_int;
-  sigemptyset(&sa_conf.sa_mask);
-  sa_conf.sa_flags = SA_RESTART;
-
-
-  if((pid = fork()) < 0){
-    perror("smallsh");
-    return(-1);
-  }
-
-  if(pid == 0){
-    sigaction(SIGINT, &sa_ign, NULL);
-    sigaction(SIGQUIT, &sa_ign, NULL);
-
-    execvp(*cline, cline);
-    perror(*cline);
-    exit(127);
-  } else {
-    fg_pid = pid;
-  }
-
-  /* code for parent */
-  /* if background process print pid and exit */
-  if(where == BACKGROUND){
-    fg_pid = 0;
-    printf("[Process id %d]\n", pid);
-    return(0);
-  }
-
-  /* wait until process pid exits */
-  sigaction(SIGINT, &sa_conf, NULL);
-  sigaction(SIGQUIT, &sa_conf, NULL);
-
-  while( (ret=wait(&exitstat)) != pid && ret != -1)
-    ;
-
-  fg_pid = 0;
-  return(ret == -1 ? -1 : exitstat);
+char *wrk;
+for(wrk = special; *wrk != '\0'; wrk++) {
+ if (c == *wrk) {
+printf(" special arg : %c inarg()\n", *wrk);
+return(0);
+ }
 }
-
-void procline() /* process input line */
-{
-  char *arg[MAXARG+1]; /* pointer array for runcommand */
-  int toktype; /* type of token in command */
-  int narg; /* numer of arguments so far */
-  int type; /* FOREGROUND or BACKGROUND? */
-
-  /* reset intr flag */
-  intr_p = 0;
-
-  for(narg = 0;;){ /* loop forever */
-    /* take action according to token type */
-    switch(toktype = gettok(&arg[narg])){
-      case ARG:
-        if(narg < MAXARG)
-          narg++;
-        break;
-
-      case EOL:
-      case SEMICOLON:
-      case AMPERSAND:
-        type = (toktype == AMPERSAND) ? BACKGROUND : FOREGROUND;
-
-        if(narg != 0){
-          arg[narg] = NULL;
-          runcommand(arg, type);
-        }
-
-        if(toktype == EOL)
-          return;
-
-        narg = 0;
-        break;
-    }
-  }
+return(1);
 }
-
-main()
+/* 입력 줄을 아래와 같이 처리한다 : */
+/* */
+/* gettok을 이용하여 명령문을 구무분석(parse) 하고 */
+/* 그 과정에서 인수의 목록을 작성한다. 개행문자나 */
+/* 세미콜론(;)을 만나면 명령을 수행하기 위해 */
+/* runcommand라 불리는 루틴을 호출한다. */
+void procline()
 {
-  /* sigaction struct (linux) */
-  struct sigaction sa;
-  sa.sa_handler = SIG_IGN;
-  sigemptyset(&sa.sa_mask);
-  sa.sa_flags = SA_RESTART;
-
-  sigaction(SIGINT, &sa, NULL);
-  sigaction(SIGQUIT, &sa, NULL);
-
-  while(userin(prompt) != EOF)
-    procline();
+char *arg[MAXARG+1]; /* runcommand를 위한 포인터 배열 */
+int toktype; /* 명령내의 토근의 유형 */
+int narg; /* 지금까지의 인수 수 */
+int type; /* FOREGROUND or BACKGROUND */
+/* 토큰 유형에 따라 행동을 취한다. */
+for (narg = 0;;) { /* loop FOREVER */
+ switch(toktype = gettok(&arg[narg])) {
+case ARG : if (narg < MAXARG) narg++;
+ break;
+case EOL :
+case SEMICOLON :
+case AMPERSAND :
+ type = (toktype == AMPERSAND) ?
+ BACKGROUND : FOREGROUND;
+ if (narg != 0) {
+arg[narg] = NULL;
+runcommand(arg, type);
+ }
+ if (toktype == EOL) return;
+ narg = 0;
+ break;
+ }
+}
+}
+/* wait를 선택사항으로 하여 명령을 수행한다. */
+/* 명령을 수행하기 위한 모든 프로세스를 시작하게 한다. */
+/* 만일 where가 smallsh.j에서 정의된 값 BACKGROUND로 */
+/* 지정되어 있으면 waitpid 호출은 생략되고 runcommand는 */
+/* 단순히 프로세스 식별번호만 인쇄하고 복귀한다. */
+int runcommand(char **cline, int where)
+{
+int pid, exitstat, ret;
+if ((pid = fork()) < 0) {
+ perror("smallsh");
+ return(-1);
+}
+if (pid == 0) { /* child */
+ execvp(*cline, cline);
+ perror(*cline);
+ exit(127);
+}
+/* code for parent */
+/* if background process, print pid and exit */
+if (where == BACKGROUND) {
+ printf("[Process id %d]\n",pid);
+ return(0);
+}
+/* 프로세스 pid가 퇴장할 때까지 기다린다. */
+if (waitpid(pid, &status, 0) == -1)
+ return (-1);
+else
+ return (status);
+}
+int main()
+{
+while(userin(prompt) != EOF)
+ procline();
 }
