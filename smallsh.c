@@ -67,7 +67,7 @@ int get_token(char **outptr){
                 *tok++ = *ptr++;
     }
     *tok++ = '\0';
-    printf(" %s",*outptr);
+    printf("outToken: %s",*outptr);
     return type;
 }
 
