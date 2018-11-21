@@ -58,7 +58,7 @@ int get_token(char **outptr){
     return type;
 }
 
-int inarg(char* c){
+int inarg(char c){
     char *wrk;
     for(wrk = special; *wrk != '\0'; wrk++) {
         if (c == *wrk) {
@@ -83,7 +83,7 @@ void procline()
     int type; /* FOREGROUND or BACKGROUND */
     /* 토큰 유형에 따라 행동을 취한다. */
     for (narg = 0;;) { /* loop FOREVER */
-        switch(toktype = gettok(&arg[narg])) {
+        switch(toktype = get_token(&arg[narg])) {
             case ARG : 
                 if (narg < MAXARG) narg++;
                 break;
