@@ -120,6 +120,7 @@ int runcommand(char **cline, int where)
         return(-1);
     }
     if (pid == 0) { /* child */
+        printf("%s\n",cline);
         execvp(*cline, cline);
         perror(*cline);
         exit(127);
