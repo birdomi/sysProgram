@@ -53,16 +53,16 @@ int get_token(char **outptr){
 
     switch(*ptr++) {
         case '\n' : type = EOL;
-            /* printf(" type == EOL getok()\n"); */
+            printf(" type == EOL getok()\n");
             break;
         case '&' : type = AMPERSAND;
-            /* printf(" type == AMPERSAND getok()\n"); */
+            printf(" type == AMPERSAND getok()\n");
             break;
         case ';' : type = SEMICOLON;
-            /* printf(" type == SEMICOLON getok()\n"); */
+            printf(" type == SEMICOLON getok()\n");
             break;
         default : type = ARG;
-            /* printf(" type == ARG getok()\n"); */
+            printf(" type == ARG getok()\n");
             while(inarg(*ptr))
                 *tok++ = *ptr++;
     }
