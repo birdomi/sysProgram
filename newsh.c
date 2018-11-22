@@ -18,7 +18,9 @@ int userin(char *p){
     printw("%s ", p);
     count = 0;
 
-    initscr();
+    initscr();    
+    raw();
+    keypad(stdscr, TRUE);
     noecho();
     while(1){
         c=getch();     
