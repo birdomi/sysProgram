@@ -18,6 +18,10 @@ int userin(char *p){
     printf("%s ", p);
     count = 0;
 
+    initscr();
+    raw();
+    keypad(stdscr, TRUE);
+    noecho();
     while(1){
         if((c=getch())==EOF) return EOF;
         if(count <MAXBUF) inpbuf[count++] = c;
@@ -31,6 +35,8 @@ int userin(char *p){
             printf("%s ", p);
         }
     }    
+    endwin();
+
 }
 
 int inarg(char c){
