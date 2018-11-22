@@ -13,7 +13,7 @@ int main()
     printf("Press E to Exit\n");
 
     while((ch=getch())!='e'){
-        printf("\r%d pressed",ch);
+        printf("%d pressed\r",ch);
     }   
 
     printf("\nExiting Now\n");
