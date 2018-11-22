@@ -20,8 +20,11 @@ int userin(char *p){
     
     printw("%s ", p);
     while(1){
-        c=(char)getch();
-        printw("%c",c);
+        c=getch();
+        if(c!=KEY_UP && c!=KEY_DOWN){
+            c=(char)c;
+            printw("%c",c);
+        }
         if(c==EOF) return EOF;
         if(count <MAXBUF) inpbuf[count++] = c;
         if(c=='\n' && count <MAXBUF){
@@ -146,9 +149,10 @@ int runcommand(char **cline, int where)
         return (status);
 }
 int main()
-{
-    
+{    
     initscr();
+    raw();
+    keypad(stdscr, TRUE);
     noecho();
     while(userin(prompt) != EOF){
         procline();            
