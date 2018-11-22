@@ -17,7 +17,12 @@ int userin(char *p){
 
     
     count = 0;   
-
+    
+    initscr();
+    raw();
+    keypad(stdscr, TRUE);
+    noecho();
+    
     printw("%s ", p);
     while(1){
         c=getch();
@@ -26,6 +31,7 @@ int userin(char *p){
         if(count <MAXBUF) inpbuf[count++] = c;
         if(c=='\n' && count <MAXBUF){
             inpbuf[count] = '\0';
+            endwin();
             return count;
         }        
         if(c=='\n'){
@@ -147,13 +153,8 @@ int runcommand(char **cline, int where)
 }
 int main()
 {
-    initscr();
-    raw();
-    keypad(stdscr, TRUE);
-    noecho();
-
     while(userin(prompt) != EOF)
         procline();
 
-    endwin();
+    
 }
