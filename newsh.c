@@ -15,18 +15,16 @@ int userin(char *p){
     ptr = inpbuf;
     tok = tokbuf;
 
-    printw("%s ", p);
+    printf("%s ", p);
     count = 0;
 
-    initscr();    
+    initscr();
     raw();
     keypad(stdscr, TRUE);
     noecho();
     while(1){
-        c=getch();     
-        if(c==EOF) return EOF;
-        printw("%c",c);
-        if(count <MAXBUF) inpbuf[count++] = (char)c;
+        if((c=getch())==EOF) return EOF;
+        if(count <MAXBUF) inpbuf[count++] = c;
         if(c=='\n' && count <MAXBUF){
             inpbuf[count] = '\0';
             return count;
@@ -36,21 +34,15 @@ int userin(char *p){
             count = 0;
             printf("%s ", p);
         }
-        if(c==KEY_UP){
-            printf(" up");
-        }
-        if(c==KEY_DOWN){
-            printf(" down");
-        }
     }    
     endwin();
-
 }
 
 int inarg(char c){
     char *wrk;
     for(wrk = special; *wrk != '\0'; wrk++) {
         if (c == *wrk) {
+            printf(" special arg : %c inarg()\n", *wrk);
             return(0);
         }
     }
@@ -69,16 +61,21 @@ int get_token(char **outptr){
 
     switch(*ptr++) {
         case '\n' : type = EOL;
+            printf(" type == EOL getok()\n");
             break;
         case '&' : type = AMPERSAND;
+            printf(" type == AMPERSAND getok()\n");
             break;
         case ';' : type = SEMICOLON;
+            printf(" type == SEMICOLON getok()\n");
             break;
         default : type = ARG;
+            printf(" type == ARG getok()\n");
             while(inarg(*ptr))
                 *tok++ = *ptr++;
     }
     *tok++ = '\0';
+    printf("outToken: %s",*outptr);
     return type;
 }
 /* 입력 줄을 아래와 같이 처리한다 : */
