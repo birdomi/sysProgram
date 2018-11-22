@@ -11,8 +11,10 @@ int main()
     noecho();
 
     printf("Press E to Exit\n");
-    ch = getch();
-    printf("%d pressed",ch);
+
+    while((ch=getch())='e'){
+        printf("\r%d pressed",ch);
+    }   
 
     printf("\nExiting Now\n");
     endwin();
