@@ -9,7 +9,7 @@ int main(){
     off_t start, cur;
     char buf[10];
 
-    fd = open(".vimrc", O_RDONLY);
+    fd = open("vimrc", O_RDONLY);
     if(fd==-1){
         perror("open .vimrc.");
         exit(1);
