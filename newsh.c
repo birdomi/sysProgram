@@ -21,7 +21,7 @@ int userin(char *p){
     printw("%s ", p);
     while(1){
         c=(char)getch();
-        wprintw("%c",c);
+        printw("%c",c);
         if(c==EOF) return EOF;
         if(count <MAXBUF) inpbuf[count++] = c;
         if(c=='\n' && count <MAXBUF){
@@ -29,9 +29,9 @@ int userin(char *p){
             return count;
         }        
         if(c=='\n'){
-            wprintw(" smallsh : input line too long\n");
+            printw(" smallsh : input line too long\n");
             count = 0;
-            wprintw("%s ", p);
+            printw("%s ", p);
         }
     }    
     
@@ -136,7 +136,7 @@ int runcommand(char **cline, int where)
     /* code for parent */
     /* if background process, print pid and exit */
     if (where == BACKGROUND) {
-        wprintw("[Process id %d]\n",pid);
+        printw("[Process id %d]\n",pid);
         return(0);
     }
     /* 프로세스 pid가 퇴장할 때까지 기다린다. */
