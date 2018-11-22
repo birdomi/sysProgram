@@ -16,10 +16,7 @@ int userin(char *p){
     tok = tokbuf;
 
     
-    count = 0;   
-    
-    initscr();
-    noecho();
+    count = 0;       
     
     printw("%s ", p);
     while(1){
@@ -150,9 +147,11 @@ int runcommand(char **cline, int where)
 }
 int main()
 {
+    
+    initscr();
+    noecho();
     while(userin(prompt) != EOF){
-        procline();    
-        endwin();
+        procline();            
     }
-
+    endwin();
 }
