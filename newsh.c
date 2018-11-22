@@ -1,6 +1,8 @@
 #include "newsh.h"
 #include <stdlib.h>
 #include <fcntl.h>
+#include <ncurses/curses.h>
+#include <stdio.h>
 
 static char inpbuf[MAXBUF], tokbuf[2*MAXBUF], *ptr, *tok;
 static char special[] = {' ', '\t', '&', ';', '\n', '\0'};
@@ -17,7 +19,7 @@ int userin(char *p){
     count = 0;
 
     while(1){
-        if((c=getchar())==EOF) return EOF;
+        if((c=getch())==EOF) return EOF;
         if(count <MAXBUF) inpbuf[count++] = c;
         if(c=='\n' && count <MAXBUF){
             inpbuf[count] = '\0';
@@ -119,9 +121,9 @@ int runcommand(char **cline, int where)
     if(fd==-1){
         perror("open .history");
         exit(1);
-    }
-    
+    }    
     write(fd,inpbuf,MAXBUF);
+    close(fd);
     //***
     
     if ((pid = fork()) < 0) {
