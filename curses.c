@@ -19,7 +19,7 @@ int main()
             case KEY_DOWN: printw("\rDown Arrow");
                          break;
             default:
-                printw("\rThe pressed key is %c",ch);
+                printw("\rThe pressed key is %c,%d",ch,ch);
         }
         
     }   
