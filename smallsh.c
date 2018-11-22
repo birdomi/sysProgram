@@ -96,14 +96,14 @@ void procline()
             case AMPERSAND :
                 type = (toktype == AMPERSAND) ?
                 BACKGROUND : FOREGROUND;
-        if (narg != 0) {
-            arg[narg] = NULL;
-            runcommand(arg, type);
-        }
-        if (toktype == EOL) return;
-        narg = 0;
-        break;
-        }
+                if (narg != 0) {
+                    arg[narg] = NULL;
+                    runcommand(arg, type);
+                }
+                if (toktype == EOL) return;
+                narg = 0;
+                break;
+                }
     }
 }
 
