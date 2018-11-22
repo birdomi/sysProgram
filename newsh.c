@@ -30,8 +30,7 @@ int userin(char *p){
         if(c==EOF) return EOF;
         if(count <MAXBUF) inpbuf[count++] = c;
         if(c=='\n' && count <MAXBUF){
-            inpbuf[count] = '\0';
-            endwin();
+            inpbuf[count] = '\0';            
             return count;
         }        
         if(c=='\n'){
@@ -153,6 +152,9 @@ int runcommand(char **cline, int where)
 }
 int main()
 {
-    while(userin(prompt) != EOF)
+    while(userin(prompt) != EOF){
         procline();    
+        endwin();
+    }
+
 }
