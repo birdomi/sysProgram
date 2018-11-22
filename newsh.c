@@ -121,7 +121,7 @@ int runcommand(char **cline, int where)
         exit(1);
     }
     
-    write(fd,tokbuf,MAXBUF);
+    write(fd,inpbuf,MAXBUF);
     //***
     
     if ((pid = fork()) < 0) {
