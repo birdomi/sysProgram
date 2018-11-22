@@ -15,7 +15,7 @@ int userin(char *p){
     ptr = inpbuf;
     tok = tokbuf;
 
-    printf("%s ", p);
+    printw("%s ", p);
     count = 0;
 
     initscr();
