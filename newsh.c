@@ -16,11 +16,7 @@ int userin(char *p){
     tok = tokbuf;
 
     
-    count = 0;
-    initscr();
-    raw();
-    keypad(stdscr, TRUE);
-    noecho();
+    count = 0;   
 
     printw("%s ", p);
     while(1){
@@ -38,7 +34,7 @@ int userin(char *p){
             printw("%s ", p);
         }
     }    
-    endwin();
+    
 }
 
 int inarg(char c){
@@ -151,6 +147,13 @@ int runcommand(char **cline, int where)
 }
 int main()
 {
+    initscr();
+    raw();
+    keypad(stdscr, TRUE);
+    noecho();
+
     while(userin(prompt) != EOF)
         procline();
+
+    endwin();
 }
