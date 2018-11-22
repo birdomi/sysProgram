@@ -1,4 +1,4 @@
-#include "smallsh.h"
+#include "newsh.h"
 #include <stdlib.h>
 #include <fcntl.h>
 
@@ -120,7 +120,8 @@ int runcommand(char **cline, int where)
         perror("open .history");
         exit(1);
     }
-    write(fd,cline,MAXBUF);
+    
+    write(fd,tokbuf,MAXBUF);
     //***
     
     if ((pid = fork()) < 0) {
