@@ -25,7 +25,7 @@ int userin(char *p){
     
     printw("%s ", p);
     while(1){
-        c=getch();
+        c=(char)getch();
         printw("%c",c);
         if(c==EOF) return EOF;
         if(count <MAXBUF) inpbuf[count++] = c;
@@ -154,7 +154,5 @@ int runcommand(char **cline, int where)
 int main()
 {
     while(userin(prompt) != EOF)
-        procline();
-
-    
+        procline();    
 }
