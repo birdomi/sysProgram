@@ -15,7 +15,7 @@ int userin(char *p){
     ptr = inpbuf;
     tok = tokbuf;
 
-    printf("%s ", p);
+    printw("%s ", p);
     count = 0;
 
     initscr();
@@ -23,16 +23,22 @@ int userin(char *p){
     while(1){
         c=getch();     
         if(c==EOF) return EOF;
-        printf("%c",c);
+        printw("%c",c);
         if(count <MAXBUF) inpbuf[count++] = c;
         if(c=='\n' && count <MAXBUF){
             inpbuf[count] = '\0';
             return count;
         }        
         if(c=='\n'){
-            printf(" smallsh : input line too long\n");
+            printw(" smallsh : input line too long\n");
             count = 0;
-            printf("%s ", p);
+            printw("%s ", p);
+        }
+        if(c==KEY_UP){
+            printw(" up");
+        }
+        if(c==KEY_DOWN){
+            printw(" down");
         }
     }    
     endwin();
@@ -43,7 +49,6 @@ int inarg(char c){
     char *wrk;
     for(wrk = special; *wrk != '\0'; wrk++) {
         if (c == *wrk) {
-            printf(" special arg : %c inarg()\n", *wrk);
             return(0);
         }
     }
@@ -62,21 +67,16 @@ int get_token(char **outptr){
 
     switch(*ptr++) {
         case '\n' : type = EOL;
-            printf(" type == EOL getok()\n");
             break;
         case '&' : type = AMPERSAND;
-            printf(" type == AMPERSAND getok()\n");
             break;
         case ';' : type = SEMICOLON;
-            printf(" type == SEMICOLON getok()\n");
             break;
         default : type = ARG;
-            printf(" type == ARG getok()\n");
             while(inarg(*ptr))
                 *tok++ = *ptr++;
     }
     *tok++ = '\0';
-    printf("outToken: %s",*outptr);
     return type;
 }
 /* 입력 줄을 아래와 같이 처리한다 : */
@@ -144,7 +144,7 @@ int runcommand(char **cline, int where)
     /* code for parent */
     /* if background process, print pid and exit */
     if (where == BACKGROUND) {
-        printf("[Process id %d]\n",pid);
+        printw("[Process id %d]\n",pid);
         return(0);
     }
     /* 프로세스 pid가 퇴장할 때까지 기다린다. */
