@@ -14,7 +14,7 @@ int main()
     ch = getch();
     printf("%d pressed",ch);
 
-    printf("\n\Exiting Now\n");
+    printf("\nExiting Now\n");
     endwin();
 
     return 0;
