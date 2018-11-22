@@ -23,8 +23,8 @@ int userin(char *p){
     keypad(stdscr, TRUE);
     noecho();
     while(1){
-        c=getch()
-        printw(c);
+        c=getch();
+        printw("%c",c);
         if(c==EOF) return EOF;
         if(count <MAXBUF) inpbuf[count++] = c;
         if(c=='\n' && count <MAXBUF){
