@@ -15,13 +15,14 @@ int userin(char *p){
     ptr = inpbuf;
     tok = tokbuf;
 
-    printw("%s ", p);
+    
     count = 0;
-
     initscr();
     raw();
     keypad(stdscr, TRUE);
     noecho();
+
+    printw("%s ", p);
     while(1){
         c=getch();
         printw("%c",c);
