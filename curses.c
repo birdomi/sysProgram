@@ -50,9 +50,9 @@ int main(void) {
   char c;
   printf("(getche example) please type a letter: ");
   c = getche();
-  printf("\nYou typed: %c\n", c);
+  printf("\nYou typed: %d\n", (int)c);
   printf("(getch example) please type a letter...");
   c = getch();
-  printf("\nYou typed: %c\n", c);
+  printf("\nYou typed: %d\n", (int)c);
   return 0;
 } 
