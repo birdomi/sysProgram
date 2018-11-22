@@ -22,7 +22,7 @@ int userin(char *p){
     noecho();
     while(1){
         c=getch()        
-        if(c)==EOF) return EOF;
+        if(c==EOF) return EOF;
         printf("%c",c);
         if(count <MAXBUF) inpbuf[count++] = c;
         if(c=='\n' && count <MAXBUF){
