@@ -26,7 +26,7 @@ int userin(char *p){
         c=getch();     
         if(c==EOF) return EOF;
         printw("%c",c);
-        if(count <MAXBUF) inpbuf[count++] = c;
+        if(count <MAXBUF) inpbuf[count++] = (char)c;
         if(c=='\n' && count <MAXBUF){
             inpbuf[count] = '\0';
             return count;
