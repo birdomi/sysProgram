@@ -23,16 +23,18 @@ int userin(char *p){
     keypad(stdscr, TRUE);
     noecho();
     while(1){
-        if((c=getch())==EOF) return EOF;
+        c=getch()
+        printw(c);
+        if(c==EOF) return EOF;
         if(count <MAXBUF) inpbuf[count++] = c;
         if(c=='\n' && count <MAXBUF){
             inpbuf[count] = '\0';
             return count;
         }        
         if(c=='\n'){
-            printf(" smallsh : input line too long\n");
+            printw(" smallsh : input line too long\n");
             count = 0;
-            printf("%s ", p);
+            printw("%s ", p);
         }
     }    
     endwin();
