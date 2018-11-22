@@ -19,11 +19,11 @@ int userin(char *p){
     count = 0;
 
     initscr();
-    raw();
-    keypad(stdscr, TRUE);
     noecho();
     while(1){
-        if((c=getch())==EOF) return EOF;
+        c=getch()        
+        if(c)==EOF) return EOF;
+        printf("%c",c);
         if(count <MAXBUF) inpbuf[count++] = c;
         if(c=='\n' && count <MAXBUF){
             inpbuf[count] = '\0';
