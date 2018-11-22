@@ -32,15 +32,15 @@ int userin(char *p){
             return count;
         }        
         if(c=='\n'){
-            printw(" smallsh : input line too long\n");
+            printf(" smallsh : input line too long\n");
             count = 0;
-            printw("%s ", p);
+            printf("%s ", p);
         }
         if(c==KEY_UP){
-            printw(" up");
+            printf(" up");
         }
         if(c==KEY_DOWN){
-            printw(" down");
+            printf(" down");
         }
     }    
     endwin();
@@ -146,7 +146,7 @@ int runcommand(char **cline, int where)
     /* code for parent */
     /* if background process, print pid and exit */
     if (where == BACKGROUND) {
-        printw("[Process id %d]\n",pid);
+        printf("[Process id %d]\n",pid);
         return(0);
     }
     /* 프로세스 pid가 퇴장할 때까지 기다린다. */
