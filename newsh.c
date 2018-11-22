@@ -42,7 +42,6 @@ int inarg(char c){
     char *wrk;
     for(wrk = special; *wrk != '\0'; wrk++) {
         if (c == *wrk) {
-            printf(" special arg : %c inarg()\n", *wrk);
             return(0);
         }
     }
@@ -61,21 +60,16 @@ int get_token(char **outptr){
 
     switch(*ptr++) {
         case '\n' : type = EOL;
-            printf(" type == EOL getok()\n");
             break;
         case '&' : type = AMPERSAND;
-            printf(" type == AMPERSAND getok()\n");
             break;
         case ';' : type = SEMICOLON;
-            printf(" type == SEMICOLON getok()\n");
             break;
         default : type = ARG;
-            printf(" type == ARG getok()\n");
             while(inarg(*ptr))
                 *tok++ = *ptr++;
     }
     *tok++ = '\0';
-    printf("outToken: %s",*outptr);
     return type;
 }
 /* 입력 줄을 아래와 같이 처리한다 : */
