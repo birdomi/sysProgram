@@ -1,37 +1,21 @@
-#include<ncurses/curses.h>
+#include <ncurses/curses.h>
+#include <stdio.h>
 
 int main()
 {
-int ch;
+    int ch;
+    /* Curses Initialisations */
+    initscr();
+    raw();
+    keypad(stdscr, TRUE);
+    noecho();
 
-/* Curses Initialisations */
-initscr();
-raw();
-keypad(stdscr, TRUE);
-noecho();
+    printf("Press E to Exit\n");
+    ch = getch();
+    printf("%d pressed",ch);
 
-printw("Press E to Exit\n");
+    printf("\n\Exiting Now\n");
+    endwin();
 
-while((ch = getch()) != 'E')
-{
-    switch(ch)
-    {
-    case KEY_UP:         printw("\nUp Arrow");
-                break;
-    case KEY_DOWN:      printw("\nDown Arrow");
-                break;
-    case KEY_LEFT:      printw("\nLeft Arrow");
-                break;
-    case KEY_RIGHT:     printw("\nRight Arrow");
-                break;
-    default:    
-                printw("\nThe pressed key is %c",ch);
-
-    }
-}
-
-printw("\n\Exiting Now\n");
-endwin();
-
-return 0;
+    return 0;
 }
