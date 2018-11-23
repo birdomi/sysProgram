@@ -17,7 +17,7 @@ int userin(char *p) {
 
 	count = 0;
 
-	printw("%s ", p);
+	printf("%s ", p);
 	while (1) {
 		c = getchar();
 		if (c == EOF) return EOF;
