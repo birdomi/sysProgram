@@ -8,16 +8,6 @@ static char special[] = { ' ', '\t', '&', ';', '\n', '\0' };
 
 char *prompt = "Command>";
 
-void reDisplay(char *line) {
-	int i = 0;
-	printf("\r");
-	for (i = 0; i < MAXBUF; i++)
-		printf("\0");
-	printf("\r");
-	printf("%s ", prompt);
-	printf("%s ", line);
-}
-
 int userin(char *p) {
 	int c, count;
 
@@ -42,10 +32,10 @@ int userin(char *p) {
 			printf("%s ", p);
 		}
 		if (c == '[') {
-			reDisplay("up arrow");
+			printf("a");
 		}
 		if (c == ']') {
-			reDisplay("down arrow");
+			printf("a");			
 		}
 	}
 
