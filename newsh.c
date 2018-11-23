@@ -8,6 +8,11 @@ static char special[] = { ' ', '\t', '&', ';', '\n', '\0' };
 
 char *prompt = "Command>";
 
+void ClearEnterBuffer(void)
+{
+	while (getchar() != '\n');
+}
+
 int userin(char *p) {
 	int c, count;
 
@@ -19,7 +24,8 @@ int userin(char *p) {
 
 	printf("%s ", p);
 	while (1) {
-		c=getc(stdin);
+		c=getchar();
+		ClearEnterBuffer();
 		printf("%d", c);
 		if (c == EOF) return EOF;
 		if (count <MAXBUF) inpbuf[count++] = c;
