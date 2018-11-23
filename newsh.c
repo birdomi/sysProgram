@@ -8,6 +8,16 @@ static char special[] = { ' ', '\t', '&', ';', '\n', '\0' };
 
 char *prompt = "Command>";
 
+void reDisplay(char *line) {
+	int i = 0;
+	printf("\r");
+	for (i = 0; i < MAXBUF; i++)
+		printf("\0");
+	printf("\r");
+	printf("%s ", prompt);
+	printf("%s ", line);
+}
+
 int userin(char *p) {
 	int c, count;
 
@@ -30,6 +40,12 @@ int userin(char *p) {
 			printf(" smallsh : input line too long\n");
 			count = 0;
 			printf("%s ", p);
+		}
+		if (c == '[') {
+			reDisplay("up arrow");
+		}
+		if (c == ']') {
+			reDisplay("down arrow");
 		}
 	}
 
