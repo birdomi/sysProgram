@@ -24,8 +24,7 @@ int userin(char *p) {
 
 	printf("%s ", p);
 	while (1) {
-		c=getchar();
-		ClearEnterBuffer();
+		c=getchar();		
 		printf("%d", c);
 		if (c == EOF) return EOF;
 		if (count <MAXBUF) inpbuf[count++] = c;
@@ -44,6 +43,7 @@ int userin(char *p) {
 		if (c == ']') {
 			printf("a");			
 		}
+		ClearEnterBuffer();
 	}
 
 }
