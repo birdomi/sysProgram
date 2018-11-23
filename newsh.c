@@ -19,7 +19,7 @@ int userin(char *p) {
 
 	printf("%s ", p);
 	while (1) {
-		scanf("%c",&c);
+		getchar(c);
 		printf("%d", c);
 		if (c == EOF) return EOF;
 		if (count <MAXBUF) inpbuf[count++] = c;
