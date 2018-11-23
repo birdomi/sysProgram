@@ -25,7 +25,6 @@ int userin(char *p) {
 	printf("%s ", p);
 	while (1) {
 		c=getchar();
-		getchar();
 		printf("%d", c);
 		if (c == EOF) return EOF;
 		if (count <MAXBUF) inpbuf[count++] = c;
