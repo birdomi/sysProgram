@@ -38,7 +38,7 @@ int main(){
     }
 
     while(1){
-        scanf("\nselect line to reuse:%d%d",&s);
+        scanf("\nselect line to reuse:%d",&s);
         if(s<lineSelection&&s>=0)
             break;  
         else{
