@@ -5,7 +5,7 @@ static char special[] = {' ', '\t', '&', ';', '\n', '\0'};
 
 char *prompt = "Command>";
 
-char* readHistory(){
+void readHistory(char* readBuf){
     int fd,n;
     char buf[MAXBUF];
 
@@ -53,10 +53,10 @@ char* readHistory(){
     else{
         lseek(fd,s*MAXBUF,SEEK_SET);
     }
-    read(fd,buf,MAXBUF);
+    read(fd,readBuf,MAXBUF);
     printf("result: %s \n",buf);
 
-    return buf;
+    return;
 }
 
 int userin(char *p){
