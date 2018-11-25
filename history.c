@@ -2,10 +2,11 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include "newsh.h"
 
 int main(){
     int fd,n;
-    char buf[10];
+    char buf[MAXBUF];
 
     int lineNumber=0;
     fd = open(".history",O_RDONLY);
@@ -14,7 +15,7 @@ int main(){
         exit(1);
     }
     while((n=read(fd,buf,10))>0){
-        printf("%d %s",lineNumber++,buf);
+        printf("%d %s\n",lineNumber++,buf);
     }
     return 0;
 }
