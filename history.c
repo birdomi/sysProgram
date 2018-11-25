@@ -14,7 +14,7 @@ int main(){
         exit(1);
     }
     while((n=read(fd,buf,10))>0){
-        printf("%d %s",Linenumber++,buf);
+        printf("%d %s",lineNumber++,buf);
     }
     return 0;
 }
