@@ -38,11 +38,12 @@ int main(){
     }
 
     while(1){
-        scanf("\nselect line to reuse:%d",&s);
+        printf("select line: ");
+        scanf("%d",&s);
         if(s<lineSelection&&s>=0)
             break;  
         else{
-            printf("Wrong Input");
+            printf("Wrong Input\n");
             exit(1);
         }
     }
