@@ -42,7 +42,7 @@ int main(){
         if(s<lineSelection&&s>=0)
             break;  
         else{
-            printf("잘못된 입력");
+            printf("Wrong Input");
             exit(1);
         }
     }
