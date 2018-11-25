@@ -15,7 +15,7 @@ int main(){
         exit(1);
     }
     while((n=read(fd,*buf,MAXBUF))>0){
-        printf("%d %s",lineNumber++,*buf++);
+        printf("%d %s",lineNumber++,buf++);
     }
 
     return 0;
