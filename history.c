@@ -8,7 +8,6 @@
 int main(){
     int fd,n;
     char buf[MAXBUF];
-    char 
 
     int lineNumber=0;
     int lineSelection=0;
