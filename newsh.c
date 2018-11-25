@@ -74,7 +74,8 @@ int userin(char *p){
         if(count <MAXBUF) inpbuf[count++] = c;
         if(c=='\n' && count <MAXBUF){
             if(strcmp(inpbuf,"history\n")==0){
-                printf("history");
+                readHistory(inpbuf);
+                return 1;
             }
             inpbuf[count] = '\0';            
             return count;
