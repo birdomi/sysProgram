@@ -49,7 +49,7 @@ void readHistory(char* readBuf){
         }
     }
     if(lineNumber>20){
-        lseek(fd,20*MAXBUF-s*MAXBUF,SEEK_END);
+        lseek(fd,-20*MAXBUF+s*MAXBUF,SEEK_END);
     }
     else{
         lseek(fd,s*MAXBUF,SEEK_SET);
