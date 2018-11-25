@@ -1,20 +1,69 @@
 #include "newsh.h"
-#include <stdlib.h>
-#include <fcntl.h>
-#include <ncurses/curses.h>
-#include <stdio.h>
 
 static char inpbuf[MAXBUF], tokbuf[2*MAXBUF], *ptr, *tok;
 static char special[] = {' ', '\t', '&', ';', '\n', '\0'};
 
 char *prompt = "Command>";
 
+char* readHistory(){
+    int fd,n;
+    char buf[MAXBUF];
+
+    int lineNumber=0;
+    int lineSelection=0;
+    int s;
+
+    fd = open(".history",O_RDONLY);
+    if(fd == -1){
+        perror("read .history");
+        exit(1);
+    }
+    while((n=read(fd,buf,MAXBUF))>0){
+        lineNumber++;
+    }
+    
+    if(lineNumber>20){
+        lseek(fd,-20,SEEK_END);
+        while((n=read(fd,buf,MAXBUF))>0){
+            printf("%d %s",lineSelection,buf);
+            lineSelection++;
+        }
+    }
+    else{
+        lseek(fd,0,SEEK_SET);
+        while((n=read(fd,buf,MAXBUF))>0){
+            printf("%d %s",lineSelection,buf);
+            lineSelection++;
+        }
+    }
+
+    while(1){
+        printf("select line: ");
+        scanf("%d",&s);
+        if(s<lineSelection&&s>=0)
+            break;  
+        else{
+            printf("Wrong Input\n");
+            exit(1);
+        }
+    }
+    if(lineNumber>20){
+        lseek(fd,20*MAXBUF-s*MAXBUF,SEEK_END);
+    }
+    else{
+        lseek(fd,s*MAXBUF,SEEK_SET);
+    }
+    read(fd,buf,MAXBUF);
+    printf("result: %s \n",buf);
+
+    return buf;
+}
+
 int userin(char *p){
     int c, count;
 
     ptr = inpbuf;
-    tok = tokbuf;
-    
+    tok = tokbuf;    
     count = 0;       
     
     printf("%s ", p);
@@ -23,6 +72,9 @@ int userin(char *p){
         if(c==EOF) return EOF;
         if(count <MAXBUF) inpbuf[count++] = c;
         if(c=='\n' && count <MAXBUF){
+            if(inpbuf=="history\n"){
+                printf("history");
+            }
             inpbuf[count] = '\0';            
             return count;
         }        
