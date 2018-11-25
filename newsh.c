@@ -24,7 +24,7 @@ void readHistory(char* readBuf){
     }
     
     if(lineNumber>20){
-        lseek(fd,-20,SEEK_END);
+        lseek(fd,-20*MAXBUF,SEEK_END);
         while((n=read(fd,buf,MAXBUF))>0){
             printf("%d %s",lineSelection,buf);
             lineSelection++;
@@ -44,6 +44,7 @@ void readHistory(char* readBuf){
         if(s<lineSelection&&s>=0)
             break;  
         else{
+            if(s==-1)return;
             printf("Wrong Input\n");            
         }
     }
