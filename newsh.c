@@ -73,7 +73,7 @@ int userin(char *p){
         if(c==EOF) return EOF;
         if(count <MAXBUF) inpbuf[count++] = c;
         if(c=='\n' && count <MAXBUF){
-            if(strcmp(inpbuf,"history\n")){
+            if(strcmp(inpbuf,"history\n")==0){
                 printf("history");
             }
             inpbuf[count] = '\0';            
