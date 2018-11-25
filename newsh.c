@@ -1,4 +1,5 @@
 #include "newsh.h"
+#include <string.h>
 
 static char inpbuf[MAXBUF], tokbuf[2*MAXBUF], *ptr, *tok;
 static char special[] = {' ', '\t', '&', ';', '\n', '\0'};
@@ -72,7 +73,7 @@ int userin(char *p){
         if(c==EOF) return EOF;
         if(count <MAXBUF) inpbuf[count++] = c;
         if(c=='\n' && count <MAXBUF){
-            if(inpbuf=="history\n"){
+            if(strcmp(inpbuf,"history\n")){
                 printf("history");
             }
             inpbuf[count] = '\0';            
