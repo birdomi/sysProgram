@@ -48,10 +48,10 @@ int main(){
         }
     }
     if(lineNumber>20){
-        lseek(fd,20-s,SEEK_END);
+        lseek(fd,20*MAXBUF-s*MAXBUF,SEEK_END);
     }
     else{
-        lseek(fd,s,SEEK_SET);
+        lseek(fd,s*MAXBUF,SEEK_SET);
     }
     read(fd,buf,MAXBUF);
     printf("result: %s \n",buf);
