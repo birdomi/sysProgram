@@ -55,8 +55,6 @@ void readHistory(char* readBuf){
         lseek(fd,s*MAXBUF,SEEK_SET);
     }
     read(fd,readBuf,MAXBUF);
-    printf("result: %s \n",buf);
-
     return;
 }
 
