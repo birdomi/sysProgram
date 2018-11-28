@@ -81,7 +81,6 @@ int userin(char *p){
                 }
                 else{
                     count = 0;
-                    printf("%s ", p);
                 }
             }
             inpbuf[count] = '\0';            
