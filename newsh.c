@@ -46,7 +46,7 @@ void readHistory(char* readBuf){
         else{
             if(s==-1){
                 count = 0;
-                printf("\n%s ", p);
+                printf("\n%s ", prompt);
                 return;
             }
             printf("Wrong Input\n");            
