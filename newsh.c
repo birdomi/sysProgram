@@ -6,7 +6,7 @@ static char special[] = {' ', '\t', '&', ';', '\n', '\0'};
 
 char *prompt = "Command>";
 
-void readHistory(char* readBuf){
+int readHistory(char* readBuf){
     int fd,n;
     char buf[MAXBUF];
 
@@ -42,12 +42,11 @@ void readHistory(char* readBuf){
         printf("select line(-1 to exit): ");
         scanf("%d",&s);
         if(s<lineSelection&&s>=0)
-            break;  
+            break;
         else{
             if(s==-1){
-                count = 0;
-                printf("\n%s ", prompt);
-                return;
+                close(fd);
+                return 0;
             }
             printf("Wrong Input\n");            
         }
@@ -60,7 +59,7 @@ void readHistory(char* readBuf){
     }
     read(fd,readBuf,MAXBUF);
     close(fd);
-    return;
+    return 1;
 }
 
 int userin(char *p){
@@ -77,8 +76,13 @@ int userin(char *p){
         if(count <MAXBUF) inpbuf[count++] = c;
         if(c=='\n' && count <MAXBUF){
             if(strcmp(inpbuf,"history\n")==0){
-                readHistory(inpbuf);
-                return 1;
+                if(readHistory(inpbuf)){
+                    return 1;
+                }
+                else{
+                    count = 0;
+                    printf("%s ", p);
+                }
             }
             inpbuf[count] = '\0';            
             return count;
