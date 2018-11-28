@@ -47,7 +47,7 @@ int readHistory(char* readBuf){
         }
         else{
             if(s==-1){   
-                for(int n=0;n<MAXBUF;n++)
+                for(n=0;n<MAXBUF;n++)
                     readBuf[n]='\0';             
                 close(fd);
                 return 0;
