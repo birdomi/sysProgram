@@ -40,7 +40,7 @@ int readHistory(char* readBuf){
 
     while(1){
         printf("select line(-1 to exit): ");
-        while (getchar() != '\n');
+        
         scanf("%d",&s);        
         if(s<lineSelection&&s>=0){
             getchar();
@@ -53,7 +53,8 @@ int readHistory(char* readBuf){
                 close(fd);
                 return 0;
             }
-            printf("Wrong Input\n");            
+            printf("Wrong Input\n");    
+            while (getchar() != '\n');        
         }
     }
     if(lineNumber>20){
