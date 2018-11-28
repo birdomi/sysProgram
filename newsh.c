@@ -47,7 +47,6 @@ int readHistory(char* readBuf){
         }
         else{
             if(s==-1){
-                getchar();
                 close(fd);
                 return 0;
             }
@@ -82,7 +81,6 @@ int userin(char *p){
                     return 1;
                 }
                 else{
-                    fflush(stdin);
                     count = 0;
                     continue;
                 }
