@@ -16,8 +16,8 @@ int readHistory(char* readBuf){
 
     fd = open(".history",O_RDONLY);
     if(fd == -1){
-        perror("read .history");
-        exit(1);
+        printf("\nThere is no history.");
+        return 0;
     }
     while((n=read(fd,buf,MAXBUF))>0){
         lineNumber++;
@@ -87,7 +87,7 @@ int userin(char *p){
             inpbuf[count] = '\0';            
             return count;
         }        
-        if(c=='\n'){
+        if(c=='\n' && count => MAXBUF){
             printf(" smallsh : input line too long\n");
             count = 0;
             printf("%s ", p);
