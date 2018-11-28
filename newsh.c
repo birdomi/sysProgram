@@ -44,7 +44,11 @@ void readHistory(char* readBuf){
         if(s<lineSelection&&s>=0)
             break;  
         else{
-            if(s==-1)return;
+            if(s==-1){
+                count = 0;
+                printf("\n%s ", p);
+                return;
+            }
             printf("Wrong Input\n");            
         }
     }
