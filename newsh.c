@@ -47,6 +47,7 @@ int readHistory(char* readBuf){
         }
         else{
             if(s==-1){
+                getchar();
                 close(fd);
                 return 0;
             }
