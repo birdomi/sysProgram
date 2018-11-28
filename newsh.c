@@ -41,6 +41,7 @@ int readHistory(char* readBuf){
     while(1){
         printf("select line(-1 to exit): ");
         scanf("%d",&s);
+        fflush(stdin);
         if(s<lineSelection&&s>=0)
             break;
         else{
