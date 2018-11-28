@@ -78,7 +78,7 @@ int userin(char *p){
         c=getchar();
         if(c==EOF) return EOF;
         if(count <MAXBUF) inpbuf[count++] = c;
-        if(strcmp(inpbuf,"history")==0){
+        if(strcmp(inpbuf,"history\n")==0){
                 if(readHistory(inpbuf)){
                     return 1;
                 }
