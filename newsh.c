@@ -40,10 +40,11 @@ int readHistory(char* readBuf){
 
     while(1){
         printf("select line(-1 to exit): ");
-        scanf("%d",&s);
-        getchar();
-        if(s<lineSelection&&s>=0)
+        scanf("%d",&s);        
+        if(s<lineSelection&&s>=0){
+            getchar();
             break;
+        }
         else{
             if(s==-1){
                 close(fd);
