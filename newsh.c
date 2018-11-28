@@ -87,7 +87,7 @@ int userin(char *p){
             inpbuf[count] = '\0';            
             return count;
         }        
-        if(c=='\n' && count => MAXBUF){
+        if(c=='\n' && count >= MAXBUF){
             printf(" smallsh : input line too long\n");
             count = 0;
             printf("%s ", p);
