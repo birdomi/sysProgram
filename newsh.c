@@ -74,7 +74,8 @@ int userin(char *p){
     while(1){
         c=getchar();
         if(c==EOF) return EOF;
-        if(c=='['){
+        if(count <MAXBUF) inpbuf[count++] = c;        
+        if(c=='6'){
             if(readHistory(inpbuf)){
                     return 1;
                 }
@@ -83,7 +84,6 @@ int userin(char *p){
                     continue;
                 }
         }
-        if(count <MAXBUF) inpbuf[count++] = c;
         if(c=='\n' && count <MAXBUF){
             inpbuf[count] = '\0';            
             return count;
