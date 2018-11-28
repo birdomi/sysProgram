@@ -80,6 +80,7 @@ int userin(char *p){
                     return 1;
                 }
                 else{
+                    fflush(stdin);
                     count = 0;
                     continue;
                 }
