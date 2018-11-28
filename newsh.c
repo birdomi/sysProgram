@@ -64,6 +64,7 @@ int readHistory(char* readBuf){
 
 int userin(char *p){
     int c, count;
+    int i =0;
 
     ptr = inpbuf;
     tok = tokbuf;    
@@ -77,6 +78,8 @@ int userin(char *p){
         if(c=='\n' && count <MAXBUF){
             if(strcmp(inpbuf,"history\n")==0){
                 if(readHistory(inpbuf)){
+                    for(i=0;inpbuf[i]!='\n';i++);
+                    inpbuf[i]='\0';
                     return 1;
                 }
                 else{
