@@ -4,11 +4,13 @@
 #include <unistd.h>
 #include <string.h>
 
+#define MAX 256
+
 int main(int argc, char* argv[]){
     int fd;
     int option;
     int n;
-    char inpbuf[256];
+    char inpbuf[MAX];
 
     if(argc==1){
         printf("use -a to add alias\n");
@@ -31,6 +33,7 @@ int main(int argc, char* argv[]){
         strcat(inpbuf,o_name);
         strcat(inpbuf,"=");
         strcat(inpbuf,t_name);
+        strcat(inpbuf,"\n");
 
         if(o_name==NULL||t_name==NULL){
             perror("argument error");
@@ -45,7 +48,7 @@ int main(int argc, char* argv[]){
             exit(1);
         }
         if(option){
-            n=write(fd,argv[2],strlen(argv[2]));
+            n=write(fd,inpbuf,MAX);
             if(n<0){
                 perror("write .alias");
                 exit(1);
