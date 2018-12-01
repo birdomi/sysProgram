@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-int main(int argc, char** argc){
+int main(int argc, char* argv[]){
     int fd;
     fd = open(".alias",O_RDWR|O_APPEND|O_CREAT);
     if(fd == -1){
