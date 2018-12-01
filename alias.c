@@ -25,7 +25,7 @@ int main(int argc, char* argv[]){
         printf("%d, size: %d\n",option,strlen(argv[2]));
         
         char *o_name=strtok(argv[2],"=");
-        char *t_name=strtok(Null," ");
+        char *t_name=strtok(NULL," ");
 
         printf("%s %s\n",o_name,t_name);
         /*  
