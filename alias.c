@@ -20,7 +20,9 @@ int main(int argc, char* argv[]){
         else{
             printf("Unknown option\n");
             exit(1);
-        }        
+        }      
+        printf("%d",option);
+        /*  
         fd = open(".alias",O_RDWR|O_APPEND|O_CREAT,0644);
         if(fd == -1){
             perror("open .alias");
@@ -34,7 +36,7 @@ int main(int argc, char* argv[]){
             }
             close(fd);
             return 0;
-        }
+        }*/
         else{
             
         }
