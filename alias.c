@@ -26,28 +26,31 @@ int main(int argc, char* argv[]){
         
         char *o_name=strtok(argv[2],"=");
         char *t_name=strtok(NULL," ");
+        if(o_name==NULL||t_name==NULL){
+            perror("argument error");
+            exit(1);
+        }
 
         printf("%s %s\n",o_name,t_name);
-        /*  
+          
         fd = open(".alias",O_RDWR|O_APPEND|O_CREAT,0644);
         if(fd == -1){
             perror("open .alias");
             exit(1);
         }
         if(option){
-            n=write(fd,argv[3],argv[3].length);
+            n=write(fd,argv[2],strlen(argv[2]));
             if(n<0){
                 perror("write .alias");
                 exit(1);
             }
             close(fd);
             return 0;
-        }
-        
+        }        
         else{
             
         }
-        */
+        
     }
     else{
         printf("error\n");        
