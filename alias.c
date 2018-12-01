@@ -13,9 +13,9 @@ int main(int argc, char* argv[]){
         printf("use -d for delete alias\n");
     }
     else if(argc ==3){
-        if(argv[2]=="-a")
+        if(argv[2]=="-a\0")
             option=1;
-        else if(argv[2]=="-d")
+        else if(argv[2]=="-d\0")
             option=0;
         else{
             printf("Unknown option\n");
