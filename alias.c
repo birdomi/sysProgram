@@ -24,11 +24,10 @@ int main(int argc, char* argv[]){
         }      
         printf("%d, size: %d\n",option,strlen(argv[2]));
         
-        char *ptr=strtok(argv[2],"=");
-        while(ptr!=NULL){
-            printf("%s\n",ptr);
-            ptr=strtok(NULL," ");
-        }
+        char *o_name=strtok(argv[2],"=");
+        char *t_name=strtok(Null," ");
+
+        printf("%s %s\n",o_name,t_name);
         /*  
         fd = open(".alias",O_RDWR|O_APPEND|O_CREAT,0644);
         if(fd == -1){
