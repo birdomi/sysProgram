@@ -8,7 +8,8 @@ int main(int argc, char* argv[]){
     int fd;
     int option;
     int n;
-    
+    char inpbuf[256];
+
     if(argc==1){
         printf("use -a to add alias\n");
         printf("use -d to delete alias\n");
@@ -27,9 +28,10 @@ int main(int argc, char* argv[]){
         char *o_name=strtok(argv[2],"=");
         char *t_name=strtok(NULL," ");
 
-        strcat(argv[2],"=");
-        strcat(argv[2],t_name);
-        
+        strcat(inpbuf,o_name);
+        strcat(inpbuf,"=");
+        strcat(inpbuf,t_name);
+
         if(o_name==NULL||t_name==NULL){
             perror("argument error");
             exit(1);
