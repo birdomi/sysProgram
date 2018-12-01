@@ -10,19 +10,20 @@ int main(int argc, char* argv[]){
     int n;
     
     if(argc==1){
-        printf("use -a for add alias\n");
-        printf("use -d for delete alias\n");
+        printf("use -a to add alias\n");
+        printf("use -d to delete alias\n");
     }
     else if(argc ==3){
-        if(strcmp(argv[2],"-a")==0)
+        if(strcmp(argv[1],"-a")==0)
             option=1;
-        else if(strcmp(argv[2],"-d")==0)
+        else if(strcmp(argv[1],"-d")==0)
             option=0;
         else{
             printf("Unknown option\n");
             exit(1);
         }      
-        printf("%d",option);
+        printf("%d, size: %d\n",option,strlen(argv[2]));
+        
         /*  
         fd = open(".alias",O_RDWR|O_APPEND|O_CREAT,0644);
         if(fd == -1){
