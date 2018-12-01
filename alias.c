@@ -33,7 +33,7 @@ int main(int argc, char* argv[]){
         strcat(inpbuf,o_name);
         strcat(inpbuf,"=");
         strcat(inpbuf,t_name);
-        strcat(inpbuf,"\n");
+        strcat(inpbuf,"\n\0");
 
         if(o_name==NULL||t_name==NULL){
             perror("argument error");
@@ -48,7 +48,7 @@ int main(int argc, char* argv[]){
             exit(1);
         }
         if(option){
-            n=write(fd,inpbuf,MAX);
+            n=write(fd,inpbuf,strlen(inpbuf));
             if(n<0){
                 perror("write .alias");
                 exit(1);
