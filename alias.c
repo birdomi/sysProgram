@@ -26,6 +26,10 @@ int main(int argc, char* argv[]){
         
         char *o_name=strtok(argv[2],"=");
         char *t_name=strtok(NULL," ");
+
+        strcat(argv[2],"=");
+        strcat(argv[2],t_name);
+        
         if(o_name==NULL||t_name==NULL){
             perror("argument error");
             exit(1);
