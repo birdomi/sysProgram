@@ -27,7 +27,7 @@ int main(int argc, char* argv[]){
             exit(1);
         }
         if(option){
-            n=write(".alias",argv[3],arg[3].length);
+            n=write(".alias",argv[3],argv[3].length);
             if(n<0){
                 perror("write .alias");
                 exit(1);
