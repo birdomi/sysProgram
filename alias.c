@@ -2,6 +2,7 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 
 int main(int argc, char* argv[]){
     int fd;
@@ -13,9 +14,9 @@ int main(int argc, char* argv[]){
         printf("use -d for delete alias\n");
     }
     else if(argc ==3){
-        if(argv[2]=="-a\0")
+        if(strcmp(argv[2],"-a")==0)
             option=1;
-        else if(argv[2]=="-d\0")
+        else if(strcmp(argv[2],"-d")==0)
             option=0;
         else{
             printf("Unknown option\n");
