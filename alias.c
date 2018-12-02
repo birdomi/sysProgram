@@ -80,8 +80,6 @@ int main(int argc, char* argv[]){
             perror("argument error");
             exit(1);
         }
-
-        printf("%s %s\n",o_name,t_name);
           
         fd = open(".alias",O_RDWR|O_APPEND|O_CREAT,0644);
         if(fd == -1){
@@ -89,7 +87,6 @@ int main(int argc, char* argv[]){
             exit(1);
         }
         check=checkName(o_name);
-        printf("%d\n",check);
 
         if(option==1){
             if(check<0){
