@@ -31,7 +31,7 @@ int checkName(char* name){
 }
 
 int main(int argc, char* argv[]){
-    int fd, fd_Copy;
+    int fd, fd_cp;
     int option,check;
     int n,k;
     int line=0;
@@ -113,13 +113,13 @@ int main(int argc, char* argv[]){
         }        
         else if(option==0){            
             if(check>0){
-                fd_Copy=open(".tmp",O_RDWR|O_CREAT|O_TRUNC,0644); 
+                fd_cp=open(".tmp",O_RDWR|O_CREAT|O_TRUNC,0644); 
                 for(k=0;k<check;k++){
                     n=read(fd,buf,MAX);
-                    write(fd_Copy,buf,n);
+                    write(fd_cp,buf,n);
                 }
                 while((n=read(fd,buf,MAX))>0){
-                    write(fd_Copy,buf,n);
+                    write(fd_cp,buf,n);
                 }
                 unlink(".alias");
                 n=rename(".tmp",".alias");
@@ -127,7 +127,6 @@ int main(int argc, char* argv[]){
                     perror("file rename error");
                     exit(1);
                 }
-
             }
             else{
                 printf("There is no alias name for %s\n",o_name);
