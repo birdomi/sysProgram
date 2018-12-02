@@ -112,8 +112,12 @@ int main(int argc, char* argv[]){
             }
         }        
         else if(option==0){            
-            if(check>0){
+            if(check>=0){
                 fd_cp=open(".tmp",O_RDWR|O_CREAT|O_TRUNC,0644); 
+                if(fd_cp<0){
+                    perror("make cp file error");
+                    exit(1);
+                }
                 for(k=0;k<check;k++){
                     n=read(fd,buf,MAX);
                     write(fd_cp,buf,n);
