@@ -6,16 +6,18 @@
 
 #define MAX 32
 
-int checkName(int fd,char* name){
+int checkName(char* name){
     char buf[MAX];
     char* o_name;
-    int n;
+    int n,fd;
     int line=0;
 
+    fd = open(".alias",O_RDONLY);
     while((n=read(fd,buf,MAX))>0){
         char *o_name=strtok(buf,"=");
         printf("%s\n",o_name);
         if(strcmp(o_name,name)==0){
+            close(fd);
             return line;
         }
         line++;
@@ -24,6 +26,7 @@ int checkName(int fd,char* name){
         perror(".alias read error");
         exit(1);
     }
+    close(fd);
     return -1; //name not founded
 }
 
@@ -89,7 +92,7 @@ int main(int argc, char* argv[]){
             perror("open .alias");
             exit(1);
         }
-        check=checkName(fd,o_name);
+        check=checkName(o_name);
         printf("%d\n",check);
         if(option==-1){
             if(check<0){
