@@ -70,7 +70,7 @@ int main(int argc, char* argv[]){
         printf("%d, size: %d\n",option,strlen(argv[2]));
         
         char *o_name=strtok(argv[2],"=");
-        char *t_name=strtok(NULL," ");       
+        char *t_name=strtok(NULL,"=");       
         
         strcat(buf,o_name);
         strcat(buf,"=");
@@ -91,14 +91,20 @@ int main(int argc, char* argv[]){
         }
         check=checkName(fd,o_name);
         printf("%d\n",check);
-        if(option==1){
-            n=write(fd,buf,MAX);
-            if(n<0){
-                perror("write .alias");
+        if(option==-1){
+            if(check==-1){
+                n=write(fd,buf,MAX);
+                if(n<0){
+                    perror("write .alias");
+                    exit(1);
+                }
+                close(fd);
+                return 0;
+            }
+            else{
+                printf("There is already alias name for %s\n",o_name);
                 exit(1);
             }
-            close(fd);
-            return 0;
         }        
         else{
             
