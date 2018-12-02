@@ -118,7 +118,7 @@ int main(int argc, char* argv[]){
                     perror("make cp file error");
                     exit(1);
                 }
-                for(k=0;k<check;k++){
+                for(k=0;k<check-1;k++){
                     n=read(fd,buf,MAX);
                     write(fd_cp,buf,n);
                 }
