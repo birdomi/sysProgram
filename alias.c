@@ -14,6 +14,7 @@ int checkName(int fd,char* name){
 
     while((n=read(fd,buf,MAX))>0){
         char *o_name=strtok(buf,"=");
+        printf("%s\n",o_name);
         if(strcmp(o_name,name)==0){
             return line;
         }
