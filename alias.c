@@ -128,6 +128,7 @@ int main(int argc, char* argv[]){
                 close(fd_cp);
                 unlink(".alias");
                 n=rename(".tmp",".alias");
+                printf("n: %d\n",n);
                 if(n<0){
                     perror("file rename error");
                     exit(1);
