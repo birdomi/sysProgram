@@ -75,11 +75,7 @@ int main(int argc, char* argv[]){
         
         char *o_name=strtok(argv[2],"=");
         char *t_name=strtok(NULL,"=");       
-        
-        strcat(buf,o_name);
-        strcat(buf,"=");
-        strcat(buf,t_name);
-        strcat(buf,"\n\0");
+                
 
         if(o_name==NULL||t_name==NULL){
             perror("argument error");
@@ -98,6 +94,11 @@ int main(int argc, char* argv[]){
 
         if(option==1){
             if(check<0){
+                strcat(buf,o_name);
+                strcat(buf,"=");
+                strcat(buf,t_name);
+                strcat(buf,"\n\0");
+                
                 n=write(fd,buf,MAX);
                 if(n<0){
                     perror("write .alias");
