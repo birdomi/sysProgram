@@ -29,7 +29,7 @@ int main(int argc, char* argv[]){
             }
             if(n<0){
                 perror(".alias read error");
-                exit(1)
+                exit(1);
             }
             return 0;
         }
@@ -52,10 +52,10 @@ int main(int argc, char* argv[]){
         char *o_name=strtok(argv[2],"=");
         char *t_name=strtok(NULL," ");
 
-        strcat(inpbuf,o_name);
-        strcat(inpbuf,"=");
-        strcat(inpbuf,t_name);
-        strcat(inpbuf,"\n\0");
+        strcat(buf,o_name);
+        strcat(buf,"=");
+        strcat(buf,t_name);
+        strcat(buf,"\n\0");
 
         if(o_name==NULL||t_name==NULL){
             perror("argument error");
@@ -70,7 +70,7 @@ int main(int argc, char* argv[]){
             exit(1);
         }
         if(option){
-            n=write(fd,inpbuf,strlen(inpbuf));
+            n=write(fd,buf,strlen(buf));
             if(n<0){
                 perror("write .alias");
                 exit(1);
