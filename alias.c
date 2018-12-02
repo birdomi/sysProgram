@@ -70,8 +70,7 @@ int main(int argc, char* argv[]){
             printf("Unknown option\n");
             exit(1);
         }      
-        printf("%d, size: %d\n",option,strlen(argv[2]));
-        
+                
         char *o_name=strtok(argv[2],"=");
         char *t_name=strtok(NULL,"=");       
                 
