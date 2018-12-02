@@ -15,7 +15,6 @@ int checkName(char* name){
     fd = open(".alias",O_RDONLY);
     while((n=read(fd,buf,MAX))>0){
         char *o_name=strtok(buf,"=");
-        printf("%s\n",o_name);
         if(strcmp(o_name,name)==0){
             close(fd);
             return line;
@@ -122,6 +121,7 @@ int main(int argc, char* argv[]){
                 while((n=read(fd,buf,MAX))>0){
                     write(fd_cp,buf,n);
                 }
+                close(fd_cp);
                 unlink(".alias");
                 n=rename(".tmp",".alias");
                 if(n<0){
