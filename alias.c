@@ -122,13 +122,13 @@ int main(int argc, char* argv[]){
                     n=read(fd,buf,MAX);
                     write(fd_cp,buf,n);
                 }
+                lseek(fd,MAX,SEEK_CUR);
                 while((n=read(fd,buf,MAX))>0){
                     write(fd_cp,buf,n);
                 }
                 close(fd_cp);
                 unlink(".alias");
                 n=rename(".tmp",".alias");
-                printf("n: %d\n",n);
                 if(n<0){
                     perror("file rename error");
                     exit(1);
