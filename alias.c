@@ -94,7 +94,8 @@ int main(int argc, char* argv[]){
         }
         check=checkName(o_name);
         printf("%d\n",check);
-        if(option==-1){
+
+        if(option==1){
             if(check<0){
                 n=write(fd,buf,MAX);
                 if(n<0){
