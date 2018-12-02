@@ -92,7 +92,7 @@ int main(int argc, char* argv[]){
         check=checkName(fd,o_name);
         printf("%d\n",check);
         if(option==-1){
-            if(check==-1){
+            if(check<0){
                 n=write(fd,buf,MAX);
                 if(n<0){
                     perror("write .alias");
