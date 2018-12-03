@@ -70,9 +70,7 @@ int checkName(char* inputBuf){
         perror(".alias read error");
         exit(1);
     }
-    close(fd);    
-    if(strcmp(result,NULL)==0)
-        strcat(result,"\n");
+    close(fd);  
     strcpy(inputBuf,result);
     printf("result: %s\n",result);
     printf("inputBuf: %s\n",inputBuf);
