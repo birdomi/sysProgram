@@ -22,8 +22,9 @@ int checkName(char* inputBuf){
     token = strtok(input," ");
     printf("%s\n",token);
     while((n=read(fd,buf,32))>0){
-        char* o_name=strtok(buf,"=");
-        char* t_name=strtok(NULL,"=");  
+        char* o_name=buf;
+        char* t_name=strchr(buf,"=");  
+        t_name='\0';
         printf("tok: %s %s\n",o_name,t_name);
         if(strcmp(token,o_name)==0){
             check=1;
@@ -36,11 +37,12 @@ int checkName(char* inputBuf){
     check=0;
     lseek(fd,0,SEEK_SET);
 
-    while(token=strtok(input," ")){
+    while(token=strtok(NULL," ")){
         printf("%s\n",token);
         while((n=read(fd,buf,32))>0){
-            char* o_name=strtok(buf,"=");
-            char* t_name=strtok(NULL,"=");  
+            char* o_name=buf;
+            char* t_name=strchr(buf,"=");  
+            t_name='\0';
             printf("tok: %s %s\n",o_name,t_name);
             if(strcmp(token,o_name)==0){
                 check=1;
