@@ -71,6 +71,8 @@ int checkName(char* inputBuf){
         exit(1);
     }
     close(fd);    
+    if(strcmp(result,NULL)==0)
+        strcat(result,"\n");
     strcpy(inputBuf,result);
     printf("result: %s\n",result);
     printf("inputBuf: %s\n",inputBuf);
