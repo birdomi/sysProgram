@@ -6,6 +6,61 @@ static char special[] = {' ', '\t', '&', ';', '\n', '\0'};
 
 char *prompt = "Command>";
 
+int checkName(char* inputBuf){
+    char buf[32];
+    char input[MAXBUF];
+    char result[MAXBUF]="";
+    char* o_name;
+    char* t_name;
+    char* token;
+    
+    int n,fd,pos;
+    int check=0;
+    strcpy(input,inputBuf);
+    fd = open(".alias",O_RDONLY);
+    if(fd<0){
+        return -1;
+    }
+    token = strtok(input," ");
+    while((n=read(fd,buf,32))>0){
+        *o_name=strtok(buf,"=");
+        *t_name=strtok(NULL,"=");  
+        if(strcmp(token,o_name)==0){
+            check=1;
+            strcat(result,o_name);
+        }
+    }
+    if(check==0){
+        strcat(result,token);
+    }
+    check=0;
+    lseek(fd,0,SEEK_SET);
+
+    while(token=strtok(NULL," ")){
+        while((n=read(fd,buf,32))>0){
+            *o_name=strtok(buf,"=");
+            *t_name=strtok(NULL,"=");  
+            if(strcmp(token,o_name)==0){
+                check=1;
+                strcat(result,o_name);
+            }
+        }
+        if(check==0){
+            strcat(result,token);
+        }
+        check=0;
+        lseek(fd,0,SEEK_SET);
+    }
+    
+    if(n<0){
+        perror(".alias read error");
+        exit(1);
+    }
+    close(fd);
+    strcpy(inputBuf,result);
+    return 0;
+}
+
 int readHistory(char* readBuf){
     int fd,n;
     char buf[MAXBUF];
@@ -90,7 +145,8 @@ int userin(char *p){
                 }
             }
         if(c=='\n' && count <MAXBUF){           
-            inpbuf[count] = '\0';            
+            inpbuf[count] = '\0';    
+            checkName(inpbuf);        
             return count;
         }        
         if(c=='\n' && count >= MAXBUF){
