@@ -20,6 +20,7 @@ int checkName(char* inputBuf){
         return -1;
     }
     token = strtok(input," ");
+    printf("%s\n",token);
     while((n=read(fd,buf,32))>0){
         char* o_name=strtok(buf,"=");
         char* t_name=strtok(NULL,"=");  
@@ -35,6 +36,7 @@ int checkName(char* inputBuf){
     lseek(fd,0,SEEK_SET);
 
     while(token=strtok(NULL," ")){
+        printf("%s\n",token);
         while((n=read(fd,buf,32))>0){
             char* o_name=strtok(buf,"=");
             char* t_name=strtok(NULL,"=");  
