@@ -21,7 +21,7 @@ int checkName(char* inputBuf){
     }
     token = strtok(input," \n");
     if(token==NULL)
-        return;
+        return -1;
     while((n=read(fd,buf,32))>0){
         char* o_name=buf;
         char* t_name=strchr(buf,'=');  
