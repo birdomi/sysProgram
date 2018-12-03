@@ -10,8 +10,6 @@ int checkName(char* inputBuf){
     char buf[32];
     char input[MAXBUF];
     char result[MAXBUF]="";
-    char* o_name;
-    char* t_name;
     char* token;
     
     int n,fd,pos;
@@ -23,8 +21,8 @@ int checkName(char* inputBuf){
     }
     token = strtok(input," ");
     while((n=read(fd,buf,32))>0){
-        *o_name=strtok(buf,"=");
-        *t_name=strtok(NULL,"=");  
+        char* o_name=strtok(buf,"=");
+        char* t_name=strtok(NULL,"=");  
         if(strcmp(token,o_name)==0){
             check=1;
             strcat(result,o_name);
@@ -38,8 +36,8 @@ int checkName(char* inputBuf){
 
     while(token=strtok(NULL," ")){
         while((n=read(fd,buf,32))>0){
-            *o_name=strtok(buf,"=");
-            *t_name=strtok(NULL,"=");  
+            char* o_name=strtok(buf,"=");
+            char* t_name=strtok(NULL,"=");  
             if(strcmp(token,o_name)==0){
                 check=1;
                 strcat(result,o_name);
