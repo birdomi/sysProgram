@@ -31,7 +31,7 @@ int checkName(char* inputBuf){
         if(strcmp(token,o_name)==0){
             printf("token founded\n");
             check=1;            
-            strcat(result,o_name);
+            strcat(result,t_name);
             strcat(result," ");
         }
     }
@@ -54,7 +54,7 @@ int checkName(char* inputBuf){
             if(strcmp(token,o_name)==0){
                 printf("token founded\n");
                 check=1;
-                strcat(result,o_name);
+                strcat(result,t_name);
                 strcat(result," ");
             }
         }
