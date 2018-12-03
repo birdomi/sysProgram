@@ -24,7 +24,7 @@ int checkName(char* inputBuf){
     while((n=read(fd,buf,32))>0){
         char* o_name=buf;
         char* t_name=strchr(buf,'=');  
-        t_name='\0';
+        
         printf("tok: %s %s\n",o_name,t_name);
         if(strcmp(token,o_name)==0){
             check=1;
@@ -42,7 +42,7 @@ int checkName(char* inputBuf){
         while((n=read(fd,buf,32))>0){
             char* o_name=buf;
             char* t_name=strchr(buf,'=');  
-            t_name='\0';
+            
             printf("tok: %s %s\n",o_name,t_name);
             if(strcmp(token,o_name)==0){
                 check=1;
