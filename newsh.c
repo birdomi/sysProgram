@@ -24,6 +24,7 @@ int checkName(char* inputBuf){
     while((n=read(fd,buf,32))>0){
         char* o_name=strtok(buf,"=");
         char* t_name=strtok(NULL,"=");  
+        printf("tok: %s %s\n",o_name,t_name);
         if(strcmp(token,o_name)==0){
             check=1;
             strcat(result,o_name);
@@ -40,6 +41,7 @@ int checkName(char* inputBuf){
         while((n=read(fd,buf,32))>0){
             char* o_name=strtok(buf,"=");
             char* t_name=strtok(NULL,"=");  
+            printf("tok: %s %s\n",o_name,t_name);
             if(strcmp(token,o_name)==0){
                 check=1;
                 strcat(result,o_name);
