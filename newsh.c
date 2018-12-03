@@ -30,6 +30,7 @@ int checkName(char* inputBuf){
         
         printf("tok: %s %s\n",o_name,t_name);
         if(strcmp(token,o_name)==0){
+            printf("token founded\n");
             check=1;            
             strcat(result,o_name);
             strcat(result," ");
@@ -52,6 +53,7 @@ int checkName(char* inputBuf){
             
             printf("tok: %s %s\n",o_name,t_name);
             if(strcmp(token,o_name)==0){
+                printf("token founded\n");
                 check=1;
                 strcat(result,o_name);
                 strcat(result," ");
@@ -159,8 +161,7 @@ int userin(char *p){
             }
         if(c=='\n' && count <MAXBUF){           
             inpbuf[count] = '\0';    
-            checkName(inpbuf);      
-            printf("%s\n",inpbuf);  
+            checkName(inpbuf);
             return count;
         }        
         if(c=='\n' && count >= MAXBUF){
