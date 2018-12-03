@@ -144,7 +144,8 @@ int userin(char *p){
             }
         if(c=='\n' && count <MAXBUF){           
             inpbuf[count] = '\0';    
-            checkName(inpbuf);        
+            checkName(inpbuf);      
+            printf("%s\n",inpbuf);  
             return count;
         }        
         if(c=='\n' && count >= MAXBUF){
