@@ -20,6 +20,8 @@ int checkName(char* inputBuf){
         return -1;
     }
     token = strtok(input," \n");
+    if(token==NULL)
+        return;
     while((n=read(fd,buf,32))>0){
         char* o_name=buf;
         char* t_name=strchr(buf,'=');  
