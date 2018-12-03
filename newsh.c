@@ -20,7 +20,6 @@ int checkName(char* inputBuf){
         return -1;
     }
     token = strtok(input," ");
-    printf("%s\n",token);
     while((n=read(fd,buf,32))>0){
         char* o_name=buf;
         char* t_name=strchr(buf,'=');  
@@ -28,7 +27,7 @@ int checkName(char* inputBuf){
         t_name++;
         
         
-        printf("tok: %s %s\n",o_name,t_name);
+        printf("tok:%s %s %s\n",token, o_name,t_name);
         if(strcmp(token,o_name)==0){
             printf("token founded\n");
             check=1;            
@@ -51,7 +50,7 @@ int checkName(char* inputBuf){
             buf[(int)t_name-(int)o_name]='\0';
             t_name++;
             
-            printf("tok: %s %s\n",o_name,t_name);
+            printf("tok:%s %s %s\n",token, o_name,t_name);
             if(strcmp(token,o_name)==0){
                 printf("token founded\n");
                 check=1;
@@ -73,6 +72,7 @@ int checkName(char* inputBuf){
     }
     close(fd);
     strcpy(inputBuf,result);
+    printf("result: %s\n",inputBuf);
     return 0;
 }
 
