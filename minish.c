@@ -16,6 +16,7 @@ int checkName(char* inputBuf){
     strcpy(input,inputBuf);
     fd = open(".alias",O_RDONLY);
     if(fd<0){
+        printf("no alias\n");
         return -1;
     }
     token = strtok(input," \n");
