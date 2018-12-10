@@ -38,20 +38,20 @@ int main(int argc, char argv[]){
     char buf[MAX];
     int i;
     for(i=0;i<MAX;i++)
-        buf[i]='0';
+        buf[i]='\0';
 
     if(argc==1){
-        printf(use -a to add aliasn);
-        printf(use -d to delete aliasn);
-        printf(use -r to read alias filen);
+        printf("use -a to add alias\n");
+        printf("use -d to delete alias\n");
+        printf("use -r to read alias file\n");
     }
     else if(argc ==2){
         if(strcmp(argv[1],"-r")==0){
-            fd = open(.alias,O_RDONLY);
-            while((n=read(fd,buf,MAX))0){
+            fd = open(".alias",O_RDONLY);
+            while((n=read(fd,buf,MAX))>0){
                 printf("%s",buf);
             }
-            if(n0){
+            if(n==0){
                 perror(".alias read error");
                 exit(1);
             }
