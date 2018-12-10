@@ -15,7 +15,8 @@ int checkName(char* name){
     fd = open(".alias",O_RDONLY);
     while((n=read(fd,buf,MAX))>0){
         char *o_name=strtok(buf,"=");
-        if(strcmp(o_name,name)==0){
+        char *t_name=strtok(NULL,"=");
+        if(strcmp(t_name,name)==0){
             close(fd);
             return line;
         }
