@@ -135,13 +135,14 @@ int readHistory(char* readBuf){
 
 int userin(char *p){
     int c, count;
-
+    
+    for(count=0;count<MAXBUF;count++)
+        inpbuf[count]=0;
 
     ptr = inpbuf;
     tok = tokbuf;    
     count = 0;       
     
-    inpbuf[0]='\0';
 
     printf("%s ", p);
     while(1){
