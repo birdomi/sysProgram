@@ -141,8 +141,8 @@ int userin(char *p){
     tok = tokbuf;    
     count = 0;       
     
-    inpbuf="\0";
-    
+    inpbuf='\0';
+
     printf("%s ", p);
     while(1){
         c=getchar();
