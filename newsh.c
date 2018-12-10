@@ -135,7 +135,9 @@ int readHistory(char* readBuf){
 
 int userin(char *p){
 	int c, count;
-    inpbuf="";
+    
+    for(c=0;c<MAXBUF;c++)
+        inpbuf[c]='\0';
 	ptr = inpbuf;
 	tok = tokbuf;
 
