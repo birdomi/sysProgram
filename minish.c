@@ -16,7 +16,6 @@ int checkName(char* inputBuf){
     strcpy(input,inputBuf);
     fd = open(".alias",O_RDONLY);
     if(fd<0){
-        printf("no alias\n");
         return -1;
     }
     token = strtok(input," \n");
@@ -137,8 +136,6 @@ int readHistory(char* readBuf){
 int userin(char *p){
 	int c, count;
     
-    for(c=0;c<MAXBUF;c++)
-        inpbuf[c]='\0';
 	ptr = inpbuf;
 	tok = tokbuf;
 
