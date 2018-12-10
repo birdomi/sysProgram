@@ -13,10 +13,9 @@ int checkName(char* name){
     int line=0;
 
     fd = open(".alias",O_RDONLY);
-    while((n=read(fd,buf,MAX))==0){
-        char* o_name=strtok(buf,"=");
-        char* t_name=strtok(NULL,"\n");
-        if((strcmp(o_name,name)==0)||(strcmp(t_name,name)==0)){
+    while((n=read(fd,buf,MAX))>0){
+        char *o_name=strtok(buf,"=");
+        if(strcmp(o_name,name)==0){
             close(fd);
             return line;
         }
@@ -51,7 +50,7 @@ int main(int argc, char* argv[]){
             while((n=read(fd,buf,MAX))>0){
                 printf("%s",buf);
             }
-            if(n==0){
+            if(n<0){
                 perror(".alias read error");
                 exit(1);
             }
@@ -68,15 +67,15 @@ int main(int argc, char* argv[]){
         else if(strcmp(argv[1],"-d")==0)
             option=0;        
         else{
-            printf("Unknown optionn");
+            printf("Unknown option\n");
             exit(1);
         }      
                 
-        char* o_name=strtok(argv[2],"=");
-        char* t_name=strtok(NULL,"=");       
+        char *o_name=strtok(argv[2],"=");
+        char *t_name=strtok(NULL,"=");       
                 
 
-        if((o_name==NULL||t_name==NULL)&&option==1){
+        if(o_name==NULL||t_name==NULL&&option==1){
             perror("argument error");
             exit(1);
         }
@@ -89,7 +88,7 @@ int main(int argc, char* argv[]){
         check=checkName(o_name);
 
         if(option==1){
-            if(check==0){
+            if(check<0){
                 strcat(buf,o_name);
                 strcat(buf,"=");
                 strcat(buf,t_name);
@@ -109,7 +108,7 @@ int main(int argc, char* argv[]){
             }
         }        
         else if(option==0){            
-            if(check=0){
+            if(check>=0){
                 fd_cp=open(".tmp",O_RDWR|O_CREAT|O_TRUNC,0644); 
                 if(fd_cp<0){
                     perror("make cp file error");
