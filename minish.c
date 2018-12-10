@@ -134,19 +134,18 @@ int readHistory(char* readBuf){
 }
 
 int userin(char *p){
-	int c, count;
+    int c, count;
+
+    ptr = inpbuf;
+    tok = tokbuf;    
+    count = 0;       
     
-	ptr = inpbuf;
-	tok = tokbuf;
-
-	printf("%s", p);
-	count =0;
-
-	while(1){
-		c=getchar();
+    printf("%s ", p);
+    while(1){
+        c=getchar();
         if(c==EOF) return EOF;
         if(count <MAXBUF) inpbuf[count++] = c;
-        if(strcmp(inpbuf,"history")==0){
+        if(strcmp(inpbuf,"history\n")==0){
                 if(readHistory(inpbuf)){
                     return 1;
                 }
@@ -165,9 +164,9 @@ int userin(char *p){
             count = 0;
             printf("%s ", p);
         }
-	}
+    }    
+    
 }
-
 int inarg(char c){
 	char *wrk;
 	for(wrk = special; *wrk != '\0';wrk++){
