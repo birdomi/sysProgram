@@ -1,8 +1,4 @@
-#include "smallsh.h"
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include<string.h>
+#include "minish.h"
 
 static char inpbuf[MAXBUF], tokbuf[2*MAXBUF], *ptr, *tok;
 static char special[] = {' ', '\t', '&', ';','>','<', '|', '\n' , '\0'};
