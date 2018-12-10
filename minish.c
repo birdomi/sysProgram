@@ -135,7 +135,9 @@ int readHistory(char* readBuf){
 
 int userin(char *p){
 	int c, count;
-
+    
+    for(c=0;c<MAXBUF;c++)
+        inpbuf[c]='\0';
 	ptr = inpbuf;
 	tok = tokbuf;
 
@@ -146,7 +148,7 @@ int userin(char *p){
 		c=getchar();
         if(c==EOF) return EOF;
         if(count <MAXBUF) inpbuf[count++] = c;
-        if(strcmp(inpbuf,"history\n")==0){
+        if(strcmp(inpbuf,"history")==0){
                 if(readHistory(inpbuf)){
                     return 1;
                 }
@@ -325,7 +327,10 @@ int runcommand(char **cline, int where, int redirec ){
         perror("open .history");
         exit(1);
     }    
-    write(fd,inpbuf,MAXBUF);
+    if(write(fd,inpbuf,MAXBUF)<0){
+        perror("write .history");
+        exit(1);
+    }
     close(fd);
     //***
 
@@ -362,6 +367,5 @@ int main()
 {
 	while(userin(prompt) != EOF){
 		procline();
-        inpbuf="";
 	}
 }
