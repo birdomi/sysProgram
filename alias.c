@@ -15,14 +15,14 @@ int checkName(char* name){
     fd = open(".alias",O_RDONLY);
     while((n=read(fd,buf,MAX))==0){
         char* o_name=strtok(buf,"=");
-        char* t_name=strtok(NULL,"=");
-        if(strcmp(o_name,name)==0){
+        char* t_name=strtok(NULL,"\n");
+        if((strcmp(o_name,name)==0)||(strcmp(t_name,name)==0)){
             close(fd);
             return line;
         }
         line++;
     }
-    if(n==0){
+    if(n<0){
         perror(".alias read error");
         exit(1);
     }
