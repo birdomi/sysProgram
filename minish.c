@@ -136,9 +136,12 @@ int readHistory(char* readBuf){
 int userin(char *p){
     int c, count;
 
+
     ptr = inpbuf;
     tok = tokbuf;    
     count = 0;       
+    
+    inpbuf="\0";
     
     printf("%s ", p);
     while(1){
@@ -167,6 +170,7 @@ int userin(char *p){
     }    
     
 }
+
 int inarg(char c){
 	char *wrk;
 	for(wrk = special; *wrk != '\0';wrk++){
