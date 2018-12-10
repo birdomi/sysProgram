@@ -362,5 +362,6 @@ int main()
 {
 	while(userin(prompt) != EOF){
 		procline();
+        inpbuf="";
 	}
 }
