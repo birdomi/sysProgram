@@ -30,7 +30,7 @@ int checkName(char* name){
     return -1; //name not founded
 }
 
-int main(int argc, char argv[]){
+int main(int argc, char* argv[]){
     int fd, fd_cp;
     int option,check;
     int n,k;
@@ -72,8 +72,8 @@ int main(int argc, char argv[]){
             exit(1);
         }      
                 
-        char* o_name=strtok(argv[2],=);
-        char* t_name=strtok(NULL,=);       
+        char* o_name=strtok(argv[2],"=");
+        char* t_name=strtok(NULL,"=");       
                 
 
         if((o_name==NULL||t_name==NULL)&&option==1){
@@ -81,22 +81,22 @@ int main(int argc, char argv[]){
             exit(1);
         }
           
-        fd = open(".alias",O_RDWRO_APPENDO_CREAT,0644);
+        fd = open(".alias",O_RDWR|O_APPEND|O_CREAT,0644);
         if(fd == -1){
-            perror(open .alias);
+            perror("open .alias");
             exit(1);
         }
         check=checkName(o_name);
 
         if(option==1){
-            if(check0){
+            if(check==0){
                 strcat(buf,o_name);
-                strcat(buf,=);
+                strcat(buf,"=");
                 strcat(buf,t_name);
-                strcat(buf,n0);
+                strcat(buf,"\n\0");
 
                 n=write(fd,buf,MAX);
-                if(n0){
+                if(n<0){
                     perror("write .alias");
                     exit(1);
                 }
@@ -110,7 +110,7 @@ int main(int argc, char argv[]){
         }        
         else if(option==0){            
             if(check=0){
-                fd_cp=open(".tmp",O_RDWRO_CREATO_TRUNC,0644); 
+                fd_cp=open(".tmp",O_RDWR|O_CREAT|O_TRUNC,0644); 
                 if(fd_cp<0){
                     perror("make cp file error");
                     exit(1);
@@ -120,7 +120,7 @@ int main(int argc, char argv[]){
                     write(fd_cp,buf,n);
                 }
                 lseek(fd,MAX,SEEK_CUR);
-                while((n=read(fd,buf,MAX))0){
+                while((n=read(fd,buf,MAX))>0){
                     write(fd_cp,buf,n);
                 }
                 close(fd_cp);
