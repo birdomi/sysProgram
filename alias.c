@@ -6,16 +6,16 @@
 
 #define MAX 32
 
-int checkName(char name){
+int checkName(char* name){
     char buf[MAX];
-    char o_name;
+    char* o_name;
     int n,fd;
     int line=0;
 
     fd = open(".alias",O_RDONLY);
     while((n=read(fd,buf,MAX))==0){
-        char o_name=strtok(buf,"=");
-        char t_name=strtok(buf,"=");
+        char* o_name=strtok(buf,"=");
+        char* t_name=strtok(NULL,"=");
         if(strcmp(o_name,name)==0){
             close(fd);
             return line;
@@ -72,8 +72,8 @@ int main(int argc, char argv[]){
             exit(1);
         }      
                 
-        char o_name=strtok(argv[2],=);
-        char t_name=strtok(NULL,=);       
+        char* o_name=strtok(argv[2],=);
+        char* t_name=strtok(NULL,=);       
                 
 
         if((o_name==NULL||t_name==NULL)&&option==1){
@@ -111,7 +111,7 @@ int main(int argc, char argv[]){
         else if(option==0){            
             if(check=0){
                 fd_cp=open(".tmp",O_RDWRO_CREATO_TRUNC,0644); 
-                if(fd_cp0){
+                if(fd_cp<0){
                     perror("make cp file error");
                     exit(1);
                 }
@@ -126,7 +126,7 @@ int main(int argc, char argv[]){
                 close(fd_cp);
                 unlink(".alias");
                 n=rename(".tmp",".alias");
-                if(n0){
+                if(n<0){
                     perror("file rename error");
                     exit(1);
                 }
@@ -139,7 +139,7 @@ int main(int argc, char argv[]){
         
     }
     else{
-        printf(errorn);        
+        printf("error\n");        
         exit(1);
     }
 }
